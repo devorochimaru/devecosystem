@@ -30,9 +30,8 @@ export function Hero(): JSX.Element {
           aria-hidden
         >
           <div className="relative flex items-center justify-center">
-            {/* decorative marker icon (kept, not skull) */}
+            {/* icon removed */}
             <span className="hero-eyebrow inline-block text-[#ff1e27] text-4xl leading-none translate-y-[2px]">
-              ❕
             </span>
 
             {/* soft glow behind icon (purely decorative) */}
@@ -53,11 +52,10 @@ export function Hero(): JSX.Element {
             />
           </div>
 
-          {/* IMPORTANT: this is the brand headline — NOT hero-eyebrow to avoid collisions */}
           <h1
             id="hero-heading"
             className={
-              "hero-brand uppercase tracking-wider " +
+              "hero-eyebrow uppercase tracking-wider " +
               "text-5xl sm:text-6xl md:text-7xl lg:text-[5rem]"
             }
             style={{
@@ -97,7 +95,7 @@ export function Hero(): JSX.Element {
           next level.
         </motion.p>
 
-        {/* Notice Banner (contains the long NOTE text requested) */}
+        {/* Notice Banner */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}

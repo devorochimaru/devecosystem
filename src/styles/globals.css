@@ -1,35 +1,36 @@
-/* --- Add to end of global.css (after mobile overrides) --- */
+/* Append this small block to the END of your src/global.css */
+/* It is safe, tiny, mobile-only-friendly + desktop unchanged */
 
-/* Ensure brand headline on desktop keeps the exact large size you want */
-@media (min-width: 1024px) {
-  /* high-specificity desktop override to ensure this wins */
-  .hero-brand {
-    font-size: 5rem !important;   /* exact desired desktop size */
-    line-height: 1 !important;
-    font-weight: 800;
-    letter-spacing: 0.15em;
+.hero-particle-wrapper {
+  position: absolute;
+  left: 50%;
+  top: -6rem;              /* original offset; mobile rules will reduce it */
+  transform: translateX(-50%);
+  width: min(90vw, 900px); /* constrained visual width so particles can't push layout */
+  height: 100%;            /* covers hero vertical area but canvas drawing is limited */
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* tighten hero note on very small screens */
+@media (max-width: 480px) {
+  .hero-note {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    margin-bottom: 0.9rem !important;
   }
 
-  /* eyebrow marker small and neat on desktop */
-  .hero-eyebrow {
-    font-size: 2.4rem !important;
-    margin-bottom: 0.25rem;
-  }
-
-  /* ensure title block uses same spacing as design */
-  .hero-title {
-    font-size: 3.75rem; /* fallback for the H2 main title on large screens */
-    line-height: 1.02;
+  .hero-particle-wrapper {
+    top: -3.2rem;
+    width: min(96vw, 760px);
   }
 }
 
-/* Also add a small defensive rule so hero-brand won't be shrunk by other selectors */
-.hero-brand {
-  display: inline-block;
-  white-space: nowrap;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ensure canvas inside wrapper does not overflow */
+.hero-particle-wrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
 }
-
-/* Keep mobile clamp overrides unchanged (they already exist in your file),
-   these desktop rules only apply >=1024px so mobile looks exactly as before. */
