@@ -109,7 +109,7 @@ export function ContactCTA() {
                 UPI ID for reference:
               </p>
               <p className="text-lg text-[#ff1e27]" style={{ fontWeight: 700, fontFamily: 'monospace' }}>
-                6281867251gfam
+                6381867251@fam
               </p>
             </motion.div>
 
