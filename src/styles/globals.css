@@ -244,3 +244,112 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------- MOBILE-ONLY HERO OVERRIDES (max-width: 768px) ---------- */
+/* Replace any previously appended hero CSS with this block to avoid desktop changes. */
+
+/* keep site-wide horizontal overflow hidden */
+html, body {
+  overflow-x: hidden;
+}
+
+/* --svh default (set by App.tsx JS) */
+:root { --svh: 100; }
+
+/* Only apply hero-specific scaling and layout rules on small screens */
+@media (max-width: 768px) {
+  /* Constrain the particle background wrapper used in Hero so it can't push horizontal layout */
+  .hero-particle-wrapper {
+    position: absolute;
+    left: 50%;
+    /* reduce top offset on small screens */
+    top: -4.5rem;
+    transform: translateX(-50%);
+    width: min(92vw, 760px);
+    height: auto;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
+    filter: none; /* avoid large blur causing overflow */
+  }
+
+  /* Eyebrow / brand scaling on mobile only */
+  .hero-eyebrow {
+    font-size: clamp(0.95rem, 4.5vw, 1.6rem);
+    margin-bottom: 0.25rem;
+  }
+
+  /* Main hero title: only change on mobile. Desktop keeps Tailwind sizes */
+  .hero-title {
+    margin: 0;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.04;
+    font-size: clamp(1.4rem, 9.5vw, 2.8rem);
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  /* Subtitle */
+  .hero-subtitle {
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+    font-size: clamp(0.92rem, 3.4vw, 1.05rem);
+    color: var(--text-secondary, #a8a8b8);
+    max-width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Notice banner smaller on mobile */
+  .hero-note {
+    font-size: clamp(0.78rem, 2.3vw, 0.92rem);
+    max-width: 94%;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+  }
+
+  /* CTA row container adjustments */
+  .hero-cta-row { width: 100%; max-width: 720px; margin-inline: auto; }
+
+  /* Buttons: full width on tiny screens, auto above small breakpoint.
+     These rules only run on <= 768px so desktop button sizes are unchanged. */
+  .hero-cta-primary,
+  .hero-cta-outline {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    width: 100%;
+    padding: 0.68rem 0.85rem;
+    font-size: clamp(0.92rem, 3.2vw, 1rem);
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+
+  /* Tighten hero height on small screens to avoid huge vertical whitespace */
+  .hero-section {
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
+    min-height: calc(var(--svh, 100) * 1vh * 0.62) !important;
+  }
+
+  /* prevent accidental horizontal scroll from long child elements */
+  .hero-section, .hero-section * {
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  /* Specific tiny-screen tweaks for very small devices */
+  @media (max-width: 360px) {
+    .hero-particle-wrapper { top: -3rem; width: min(96vw, 640px); }
+    .hero-title { font-size: clamp(1.3rem, 10.5vw, 2.2rem); }
+    .hero-eyebrow { font-size: 0.9rem; }
+    .hero-cta-primary, .hero-cta-outline { padding: 0.56rem 0.72rem; }
+  }
+
+  /* ensure svgs and images scale on mobile */
+  img, svg { max-width: 100%; height: auto; display: block; }
+}
+
+/* End of mobile-only hero overrides */
