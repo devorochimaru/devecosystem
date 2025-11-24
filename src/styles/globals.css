@@ -1,275 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
+/* Append this small block to the END of your src/global.css */
+/* It is safe, tiny, mobile-only-friendly + desktop unchanged */
 
-@custom-variant dark (&:is(.dark *));
-
-/* ---------- Root variables & core theme (kept identical to your original) ---------- */
-:root {
-  --font-size: 16px;
-  --brand-red: #ff1e27;
-  --brand-red-light: #ff6a6f;
-  --brand-red-glow: rgba(255, 30, 39, 0.5);
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --bg-tertiary: #1a1a24;
-  --bg-elevated: #1f1f2e;
-  --text-primary: #ffffff;
-  --text-secondary: #a8a8b8;
-  --text-muted: #6b6b7a;
-  --background: #0a0a0f;
-  --foreground: #ffffff;
-  --card: #1a1a24;
-  --card-foreground: #ffffff;
-  --popover: #1f1f2e;
-  --popover-foreground: #ffffff;
-  --primary: #ff1e27;
-  --primary-foreground: #ffffff;
-  --secondary: #1f1f2e;
-  --secondary-foreground: #ffffff;
-  --muted: #12121a;
-  --muted-foreground: #a8a8b8;
-  --accent: #ff1e27;
-  --accent-foreground: #ffffff;
-  --destructive: #ff1e27;
-  --destructive-foreground: #ffffff;
-  --border: rgba(255, 30, 39, 0.15);
-  --input: rgba(255, 255, 255, 0.05);
-  --input-background: #12121a;
-  --switch-background: #1f1f2e;
-  --ring: rgba(255, 30, 39, 0.4);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 20px rgba(255, 30, 39, 0.3);
-  --shadow-glow-hover: 0 0 30px rgba(255, 30, 39, 0.5);
-  --radius: 0.875rem;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 0.875rem;
-  --radius-xl: 1rem;
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-  --spacing-2xl: 4rem;
-  --spacing-3xl: 6rem;
-  --duration-fast: 200ms;
-  --duration-normal: 300ms;
-  --duration-slow: 500ms;
-  --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
-  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --font-weight-medium: 500;
-  --font-weight-normal: 400;
-}
-
-/* ---------- Base resets / Tailwind-like utilities kept from your original build ---------- */
-/* (For brevity here I've left in the critical parts you need — keep the rest of your compiled tailwind utilities if you rely on them.) */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-size: var(--font-size);
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden; /* keep site-wide horizontal overflow hidden */
-}
-
-/* Scrollbar + selection */
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 5px; }
-::-webkit-scrollbar-thumb:hover { background: var(--brand-red); }
-::selection { background: var(--brand-red); color: white; }
-
-/* ---------- Hero-specific classes used by the component ---------- */
-
-/* Default hero section container (desktop sizes come from Tailwind classes on the element) */
-.hero-section {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Particle wrapper (constrains the canvas so it doesn't push layout on small devices) */
 .hero-particle-wrapper {
   position: absolute;
   left: 50%;
-  top: -6rem;
+  top: -6rem;              /* original offset; mobile rules will reduce it */
   transform: translateX(-50%);
-  width: min(90vw, 900px);
-  height: 100%;
+  width: min(90vw, 900px); /* constrained visual width so particles can't push layout */
+  height: 100%;            /* covers hero vertical area but canvas drawing is limited */
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
 }
 
-/* Eyebrow (icon + brand wrapper) - scaled on mobile in media queries below */
-.hero-eyebrow {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Brand (OROCHIMARU) - kept large on desktop via Tailwind; mobile override below */
-.hero-brand {
-  display: inline-block;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--primary);
-  text-shadow: 0 0 30px rgba(255, 30, 39, 0.5);
-}
-
-/* Large headline (Professional Grade) - desktop sizes via Tailwind */
-.hero-title {
-  font-weight: 700;
-}
-
-/* Subtitle text */
-.hero-subtitle {
-  color: var(--text-secondary);
-}
-
-/* Notice / note box */
-.hero-note {
-  box-sizing: border-box;
-}
-
-/* CTA row and buttons */
-.hero-cta-row {
-  width: 100%;
-}
-.hero-cta-primary,
-.hero-cta-outline {
-  box-sizing: border-box;
-}
-
-/* Ensure canvas inside wrapper won't overflow */
-.hero-particle-wrapper canvas {
-  display: block;
-  width: 100% !important;
-  height: auto !important;
-  max-width: 100%;
-}
-
-/* ---------- MOBILE-ONLY HERO OVERRIDES (max-width: 768px) ---------- */
-:root { --svh: 100; } /* default safe viewport unit fallback */
-
-@media (max-width: 768px) {
-  /* Constrain the particle background wrapper used in Hero so it can't push horizontal layout */
-  .hero-particle-wrapper {
-    position: absolute;
-    left: 50%;
-    top: -4.5rem;
-    transform: translateX(-50%);
-    width: min(92vw, 760px);
-    height: auto;
-    pointer-events: none;
-    overflow: visible;
-    z-index: 0;
-    filter: none;
-  }
-
-  /* Eyebrow / brand scaling on mobile only */
-  .hero-eyebrow {
-    font-size: clamp(0.95rem, 4.5vw, 1.6rem);
-    margin-bottom: 0.25rem;
-  }
-
-  /* FIX: Make OROCHIMARU large on mobile while keeping desktop unchanged */
-  .hero-brand {
-    /* big but clamped so it matches desktop visual weight */
-    font-size: clamp(2.2rem, 11.5vw, 4rem) !important;
-    letter-spacing: 0.15em !important;
-    line-height: 1 !important;
-  }
-
-  /* Main hero title: only change on mobile. Desktop keeps Tailwind sizes */
-  .hero-title {
-    margin: 0;
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.04;
-    font-size: clamp(1.4rem, 9.5vw, 2.8rem);
-    word-break: break-word;
-    hyphens: auto;
-  }
-
-  /* Subtitle */
-  .hero-subtitle {
-    margin-top: 0.6rem;
-    margin-bottom: 1rem;
-    font-size: clamp(0.92rem, 3.4vw, 1.05rem);
-    color: var(--text-secondary, #a8a8b8);
-    max-width: 88%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Notice banner smaller on mobile */
-  .hero-note {
-    font-size: clamp(0.78rem, 2.3vw, 0.92rem);
-    max-width: 94%;
-    padding-left: 0.9rem;
-    padding-right: 0.9rem;
-  }
-
-  /* CTA row container adjustments */
-  .hero-cta-row { width: 100%; max-width: 720px; margin-inline: auto; }
-
-  /* Buttons: full width on tiny screens, auto above small breakpoint */
-  .hero-cta-primary,
-  .hero-cta-outline {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 0;
-    width: 100%;
-    padding: 0.68rem 0.85rem;
-    font-size: clamp(0.92rem, 3.2vw, 1rem);
-    border-radius: 12px;
-    box-sizing: border-box;
-  }
-
-  /* Tighten hero height on small screens */
-  .hero-section {
-    padding-top: 2.25rem !important;
-    padding-bottom: 2.25rem !important;
-    min-height: calc(var(--svh, 100) * 1vh * 0.62) !important;
-  }
-
-  /* prevent accidental horizontal scroll from long child elements */
-  .hero-section, .hero-section * {
-    max-width: 100vw;
-    box-sizing: border-box;
-  }
-
-  /* Tiny-device tweaks */
-  @media (max-width: 360px) {
-    .hero-particle-wrapper { top: -3rem; width: min(96vw, 640px); }
-    .hero-brand { font-size: clamp(1.3rem, 10.5vw, 2.2rem) !important; }
-    .hero-eyebrow { font-size: 0.9rem; }
-    .hero-cta-primary, .hero-cta-outline { padding: 0.56rem 0.72rem; }
-  }
-
-  /* ensure svgs and images scale on mobile */
-  img, svg { max-width: 100%; height: auto; display: block; }
-}
-
-/* ---------- Extra small adjustments appended for very small screens ---------- */
+/* tighten hero note on very small screens */
 @media (max-width: 480px) {
   .hero-note {
     padding-left: 0.75rem !important;
@@ -281,4 +25,12 @@ body {
     top: -3.2rem;
     width: min(96vw, 760px);
   }
+}
+
+/* ensure canvas inside wrapper does not overflow */
+.hero-particle-wrapper canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
 }
