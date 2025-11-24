@@ -1,4 +1,4 @@
-// file: src/components/Hero.tsx
+// src/components/Hero.tsx
 import React from "react";
 import { motion } from "motion/react";
 import { ParticleBackground } from "./ParticleBackground";
@@ -6,49 +6,44 @@ import { ParticleBackground } from "./ParticleBackground";
 export function Hero(): JSX.Element {
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      aria-label="Hero"
-      style={{ paddingTop: 64, paddingBottom: 64 }}
+      className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden py-20"
+      aria-labelledby="hero-heading"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-[#0a0a0f] pointer-events-none">
-        {/* Constrained wrapper prevents particles from pushing layout on mobile */}
-        <div className="hero-particle-wrapper" aria-hidden>
-          <ParticleBackground />
-        </div>
+      {/* Particle background wrapper (constrained by CSS .hero-particle-wrapper) */}
+      <div className="hero-particle-wrapper absolute inset-0 pointer-events-none z-0">
+        <ParticleBackground />
+      </div>
 
+      {/* dark gradient overlay */}
+      <div className="absolute inset-0 bg-[#0a0a0f] z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0f]/50 to-[#0a0a0f]" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
-        {/* Logo + Icon */}
+      {/* content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center w-full">
+        {/* Eyebrow / Brand */}
         <motion.div
-          initial={{ opacity: 0, y: -18 }}
+          initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="flex items-center justify-center gap-3 mb-6"
+          className="flex items-center justify-center gap-3 mb-8"
+          aria-hidden
         >
           <div className="relative flex items-center justify-center">
-            <span
-              className="text-[#ff1e27]"
-              style={{
-                fontSize: "clamp(1.2rem, 4.5vw, 2rem)",
-                lineHeight: 1,
-                transform: "translateY(2px)",
-              }}
-            >
+            {/* keep the simple marker icon — not the skull */}
+            <span className="hero-eyebrow inline-block text-[#ff1e27] text-4xl leading-none translate-y-[2px]">
               ❕
             </span>
 
+            {/* soft glow behind icon (purely decorative) */}
             <div
               aria-hidden
               style={{
                 position: "absolute",
-                width: 40,
-                height: 40,
+                width: 44,
+                height: 44,
                 borderRadius: 9999,
-                background: "rgba(255,30,39,0.16)",
+                background: "rgba(255,30,39,0.18)",
                 filter: "blur(18px)",
                 left: "50%",
                 top: "50%",
@@ -58,122 +53,127 @@ export function Hero(): JSX.Element {
             />
           </div>
 
-          {/* Brand name — clamp keeps desktop identical while shrinking on phones */}
           <h1
-            className="uppercase tracking-wider"
+            id="hero-heading"
+            className={
+              "hero-eyebrow uppercase tracking-wider " +
+              "text-5xl sm:text-6xl md:text-7xl lg:text-[5rem]"
+            }
             style={{
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: "0.15em",
               color: "#ff1e27",
               textShadow: "0 0 30px rgba(255, 30, 39, 0.5)",
-              fontSize: "clamp(1.6rem, 6.5vw, 5rem)",
-              lineHeight: 1,
             }}
           >
             OROCHIMARU
           </h1>
         </motion.div>
 
-        {/* Main Heading */}
+        {/* Main headline */}
         <motion.h2
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.12 }}
-          className="font-bold leading-tight mb-6"
-          style={{
-            fontSize: "clamp(1.5rem, 7vw, 4.5rem)",
-            lineHeight: 1.02,
-          }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
+          style={{ lineHeight: 1.02 }}
         >
           Professional Grade
           <br />
-          <span style={{ color: "#ff1e27" }}>Panels & Training</span>
+          <span className="text-[#ff1e27]">Panels &amp; Training</span>
         </motion.h2>
 
-        {/* Subtitle */}
+        {/* Subtitle (single instance) */}
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.28 }}
-          className="text-[#a8a8b8] mx-auto mb-8"
-          style={{
-            fontSize: "clamp(0.95rem, 2.8vw, 1.125rem)",
-            maxWidth: "720px",
-            lineHeight: 1.6,
-            paddingLeft: "0.5rem",
-            paddingRight: "0.5rem",
-          }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="hero-subtitle text-lg md:text-xl text-[#a8a8b8] max-w-3xl mx-auto mb-8 leading-relaxed px-2"
+          style={{ lineHeight: 1.6 }}
         >
           Unlock your potential with our elite tools and expert-led training
           courses. Join the OROCHIMARU community and elevate your skills to the
           next level.
         </motion.p>
 
-        {/* Notice box */}
+        {/* Notice Banner (contains the long NOTE text requested) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mx-auto mb-10 rounded-2xl backdrop-blur-sm hero-note"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="max-w-4xl mx-auto mb-12 rounded-2xl backdrop-blur-sm hero-note"
           style={{
             background:
-              "linear-gradient(135deg, rgba(255,30,39,0.08) 0%, rgba(255,30,39,0.03) 100%)",
-            border: "1px solid rgba(255,30,39,0.14)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.35)",
-            padding: "clamp(0.6rem, 1.6vw, 1.25rem)",
-            maxWidth: "760px",
-            textAlign: "center",
+              "linear-gradient(135deg, rgba(255, 30, 39, 0.10) 0%, rgba(255, 30, 39, 0.05) 100%)",
+            border: "1px solid rgba(255, 30, 39, 0.2)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.4)",
+            padding: "1.25rem 1.5rem",
           }}
+          role="status"
+          aria-live="polite"
         >
           <p
-            className="text-[#a8a8b8]"
-            style={{
-              fontSize: "clamp(0.78rem, 2.2vw, 1rem)",
-              lineHeight: 1.5,
-              margin: 0,
-            }}
+            className="text-sm md:text-base text-[#a8a8b8] leading-relaxed"
+            style={{ margin: 0 }}
           >
-            <strong>NOTE:</strong> Custom panel development is temporarily
-            paused due to academic commitments. Ready-made projects are
-            available. Please DM to purchase.
+            <strong>NOTE:</strong> Custom panel development is temporarily paused
+            due to academic commitments. Ready-made projects are available.
+            Please DM to purchase.
           </p>
         </motion.div>
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="hero-cta-row flex flex-col sm:flex-row gap-4 justify-center items-center"
+          style={{ zIndex: 10 }}
         >
           <a
             href="#panels"
-            className="group relative px-8 py-4 rounded-xl overflow-hidden w-full sm:w-auto"
+            className="hero-cta-primary group relative px-8 py-4 rounded-xl overflow-hidden w-full sm:w-auto text-center"
             style={{
               background: "linear-gradient(135deg, #ff1e27 0%, #ff6a6f 100%)",
               fontWeight: 600,
-              boxShadow: "0 4px 20px rgba(255, 30, 39, 0.3)",
-              textAlign: "center",
+              boxShadow: "0 8px 28px rgba(255, 30, 39, 0.18)",
+              color: "#fff",
+              display: "inline-flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Explore Panels
+            <span className="relative z-10">Explore Panels</span>
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
           </a>
 
           <a
             href="#contact"
-            className="group relative px-8 py-4 rounded-xl overflow-hidden w-full sm:w-auto"
+            className="hero-cta-outline group relative px-8 py-4 rounded-xl overflow-hidden w-full sm:w-auto text-center"
             style={{
-              background: "rgba(255, 255, 255, 0.05)",
-              border: "1px solid rgba(255, 30, 39, 0.3)",
+              background: "rgba(255, 255, 255, 0.03)",
+              border: "1px solid rgba(255, 30, 39, 0.2)",
               fontWeight: 600,
               backdropFilter: "blur(10px)",
-              textAlign: "center",
+              color: "#fff",
+              display: "inline-flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            Contact Us
+            <span className="relative z-10">Contact Us</span>
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255, 30, 39, 0.06) 0%, rgba(255, 30, 39, 0.02) 100%)",
+              }}
+            />
           </a>
         </motion.div>
       </div>
     </section>
   );
 }
+
+export default Hero;
